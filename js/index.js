@@ -44,6 +44,16 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    {
+      q: 'Who invented JavaScript',
+      o: ['Bill Gates', 'Brendan Eich', 'Steve Jobs', 'Elon Musk'],
+      a: 1,
+    },
+    {
+      q: 'What is CSS stand for?',
+      o: ['I dont know', 'Cooking show Sydney', 'Cascading Style Sheets', 'Pass'],
+      a: 2,
+    },
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -53,10 +63,10 @@ window.addEventListener('DOMContentLoaded', () => {
     quizArray.map((quizItem, index) => {
       quizDisplay += `<ul class="list-group">
                    Q - ${quizItem.q}
-                    <li class="list-group-item mt-2" id="li_${index}_0"><input type="radio" name="radio${index}" id="radio_${index}_0"> ${quizItem.o[0]}</li>
-                    <li class="list-group-item" id="li_${index}_1"><input type="radio" name="radio${index}" id="radio_${index}_1"> ${quizItem.o[1]}</li>
-                    <li class="list-group-item"  id="li_${index}_2"><input type="radio" name="radio${index}" id="radio_${index}_2"> ${quizItem.o[2]}</li>
-                    <li class="list-group-item"  id="li_${index}_3"><input type="radio" name="radio${index}" id="radio_${index}_3"> ${quizItem.o[3]}</li>
+                    <li class="list-group-item mt-2" id="li_${index}_0"><input type="radio" name="radio${index}" id="radio_${index}_0" value="0"> ${quizItem.o[0]}</li>
+                    <li class="list-group-item" id="li_${index}_1"><input type="radio" name="radio${index}" id="radio_${index}_1" value="1"> ${quizItem.o[1]}</li>
+                    <li class="list-group-item"  id="li_${index}_2"><input type="radio" name="radio${index}" id="radio_${index}_2" value="2"> ${quizItem.o[2]}</li>
+                    <li class="list-group-item"  id="li_${index}_3"><input type="radio" name="radio${index}" id="radio_${index}_3" value="3"> ${quizItem.o[3]}</li>
                     </ul>
                     <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
@@ -76,15 +86,38 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = "blue";
         }
 
         if (radioElement.checked) {
           // code for task 1 goes here
+          if (quizArray[index].a == radioElement.value){
+            score++
+          }
+          
+        
         }
       }
     });
+
+    quizWrap.innerHTML = `
+               <h2>You answered ${score}/${quizArray.length} questions correctly</h2>                
+                `
   };
 
-  // call the displayQuiz function
+    // call the displayQuiz function
   displayQuiz();
+
+  btnSubmit.addEventListener('click', () => {
+    calculateScore();
+    });
+
+
+  btnReset.addEventListener('click', () => {
+    location.reload();    
+  });
+
+
+
+  
 });
